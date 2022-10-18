@@ -10,9 +10,8 @@ const ImagesList = () => {
 
     fetch(`https://picsum.photos/v2/list?page=${activePage}&limit=10`)
       .then((response) => response.json())
-      .then((data) =>{
-        images.push(...data);
-        setImages(images);
+      .then((data) => {
+        setImages(images => [...images, ...data]);
         setLoading(false);
       });
   }, [activePage]);
@@ -30,7 +29,7 @@ if (isLoading) {
         <h1>Image Gallery</h1>
         <ul>
           {images.map(({ id,download_url, author}) => (
-          <li key={id}><img alt={author} src={download_url} ></img></li>
+          <li key={id}><img alt={author} src={download_url} /></li>
         ))} 
         </ul> 
       <div className="btn">
